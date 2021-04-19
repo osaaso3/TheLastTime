@@ -1,10 +1,8 @@
-﻿using Microsoft.JSInterop;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text.Json;
 using System.Threading.Tasks;
 using TheLastTime.Shared.Models;
 
@@ -279,14 +277,20 @@ namespace TheLastTime.Shared.Data
                 Dimensions dimensions = await JsInterop.GetDimensions();
 
                 if (dimensions.Width < 576)
-                    db.Settings.Add(new Settings() { Id = 1, Description = "Current", SelectedSettingsId = 1, Size = "small", Theme = "lumen" });
+                    db.Settings.Add(new Settings() { Id = 1, Description = "Main", SelectedSettingsId = 1, Size = "small", Theme = "lumen" });
                 else
-                    db.Settings.Add(new Settings() { Id = 1, Description = "Current", SelectedSettingsId = 1, Size = "medium", Theme = "superhero" });
+                    db.Settings.Add(new Settings() { Id = 1, Description = "Main", SelectedSettingsId = 1, Size = "medium", Theme = "superhero" });
 
                 save = true;
             }
 
             Settings = db.Settings.First();
+
+            if (string.IsNullOrEmpty(Settings.Description))
+            {
+                Settings.Description = "Main";
+                save = true;
+            }
 
             if (db.Categories.Count == 0)
             {
