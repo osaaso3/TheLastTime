@@ -12,17 +12,15 @@ else
 }
 
 <div class="page">
-    <div class="sidebar bg-dark">
-        <NavMenu />
-    </div>
+
+<Header />
 
     <div class="main d-flex flex-column">
-
-        <Header />
-
+    <TheLastTime.Shared.Pages.CogMod />    
         <div class="d-flex flex-grow-1">
             @Body
             @*<TheLastTime.Shared.Pages.Index />*@
         </div>
     </div>
+        <NavMenu />
 </div>

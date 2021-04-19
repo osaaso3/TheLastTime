@@ -30,6 +30,8 @@ namespace TheLastTime.Shared.Pages
 
             DataService.PropertyChanged += PropertyChanged;
             State.PropertyChanged += PropertyChanged;
+            StateHasChanged();
+
         }
 
         void PropertyChanged(object? sender, PropertyChangedEventArgs e)

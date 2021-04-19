@@ -1,4 +1,4 @@
-﻿<ul class="nav flex-column mx-2 mt-2">
+﻿<ul class="nav flex-column">
 
     @if (DataService.Settings.ShowSearch)
     {
@@ -71,7 +71,7 @@
         <li class="nav-item py-0">
             <Field>
                 <FieldLabel Class="text-light">Select ratio:</FieldLabel>
-                <RadioGroup Orientation="Orientation.Vertical" TValue="Ratio" CheckedValue="@DataService.Settings.Ratio" CheckedValueChanged="@(async (val) => { DataService.Settings.Ratio = val; await DataService.SaveSettings(); })">
+                <RadioGroup Orientation="Blazorise.Orientation.Vertical" TValue="Ratio" CheckedValue="@DataService.Settings.Ratio" CheckedValueChanged="@(async (val) => { DataService.Settings.Ratio = val; await DataService.SaveSettings(); })">
                     <Radio TValue="Ratio" Value="@(Ratio.ElapsedToAverage)"><span class="text-light">Elapsed time / average interval</span></Radio>
                     <Radio TValue="Ratio" Value="@(Ratio.ElapsedToDesired)"><span class="text-light">Elapsed time / desired interval</span></Radio>
                     <Radio TValue="Ratio" Value="@(Ratio.AverageToDesired)"><span class="text-light">Average / desired interval</span></Radio>
