@@ -20,14 +20,15 @@
 
 <div class="row">
         <div class="col-xl-6">
-        <RadzenTabs Change=@OnChange style="width:1200px;">
+        <RadzenTabs Change=@OnChange style="width:1100px;">
             <Tabs>       
                 <RadzenTabsItem Text="Start">
         
 
-<RadzenCard Style=" margin-bottom: 20px;width:1200px;">
+<RadzenCard Style=" margin-bottom: 20px;width:1100px;">
     <div class="row">
          <div class="col-md-6">  
+
        <Pagination Class="m-0">
 
             @for (int i = 0; i < dataService.CategoryList.Count; ++i)
@@ -44,7 +45,10 @@
             }
 
         </Pagination>
+                                             <Button id="add-habit" class="btn btn-lg btn-primary rounded-circle" @onclick="@(() => { asoPageA(); })"><span class="fa fa-fw fa-plus"></span></Button>
+
         <RadzenProgressBar @bind-Value="@mProgress" />
+      
 
             @if (asoHabit=="Priming")//            @if (dataService.HabitList[i].Description=="ISI")//asoIndex==2)
             // @for (int i=0;i<dataService.HabitList.Count;i++)
@@ -568,21 +572,29 @@ else
         navigationManager.NavigateTo("/");
     }
     
+            void asoPageA()
+    {
 
-        
+               if (asoHabit=="Priming")
+        {
+            MyMethodAsync();
+        }
+        }
+ 
 
     
         void asoPageC(string page)
     {
         state.SelectedCategoryId = int.Parse(page);
+                  //  MyMethodAsync();
 
        //state.NextCategory();
         idx1=int.Parse(page);
         asoHabit=asoHabitList[idx1-1];
-        if (asoHabit=="Priming")
-        {
-            MyMethodAsync();
-        }
+      //  if (asoHabit=="Priming")
+       // {
+        //    MyMethodAsync();
+       // }
 
         
         StateHasChanged();    
@@ -602,11 +614,7 @@ else
        // console.Log($"{buttonName} clicked");
 
     }
-}
 
- @code
-
-{
     public long asoIndex=0;
     public string[] asoHabitList=new string[5];
         public string asoHabit="";
@@ -793,503 +801,7 @@ else
         // When the MindMap is displayed, expand all nodes
                 await _myTreeNodeContainer2.Expand();
 
-    }
-}
-        @*
-        <div class="col-xl-6">
-
-    </div>
-  
-    
-  <RadzenCard Style="width:500px;">
-     <label>Blocks Chart Visible<RadzenCheckBox @bind-Value="modelsChart" Name="models"></RadzenCheckBox></label>
-    <RadzenChart Visible="modelsChart">
-        <label>Smooth<RadzenCheckBox @bind-Value="@smoothModels" Name="smooth"></RadzenCheckBox></label>
-        <RadzenColumnSeries StrokeWidth="5" Data="@modelsRTarray" CategoryProperty="modelCycleX" Title="RTc" ValueProperty="modelRTc" />
-        <RadzenColumnSeries StrokeWidth="5" Data="@modelsRTarray" CategoryProperty="modelCycleX" Title="RTi" ValueProperty="modelRTi" />
-        <RadzenLineSeries Smooth="@smoothModels" Data="@modelsRTarray" CategoryProperty="modelCycleX" Title="RTc-RTi" LineType="LineType.Solid" ValueProperty="modelRTic">
-            <RadzenMarkers MarkerType="MarkerType.Circle" />
-        </RadzenLineSeries>
-        <RadzenColumnOptions Radius="5" />
-        <RadzenValueAxis Formatter="@FormatAsUSD">
-            <RadzenGridLines Visible="true" />
-            <RadzenAxisTitle Text="Mean RT (ms)" />
-        </RadzenValueAxis>
-    </RadzenChart>
-
-        <label>Trials Chart Visible<RadzenCheckBox @bind-Value="@trialsChart" Name="trials"></RadzenCheckBox></label>
-    <RadzenChart Visible="trialsChart">
-        <label>Smooth<RadzenCheckBox @bind-Value="@smoothTrials" Name="smooth"></RadzenCheckBox></label>
-        <RadzenLineSeries Smooth="@smoothTrials" Data="@trialsRTarray" CategoryProperty="trialCycleX" Title="RT" LineType="LineType.Solid" ValueProperty="trialRT">
-            <RadzenMarkers MarkerType="MarkerType.Circle" />
-        </RadzenLineSeries>
-        <RadzenCategoryAxis Step="5" Padding="20" FormatString="{0}" />
-        <RadzenValueAxis Formatter="@FormatAsUSD">
-            <RadzenGridLines Visible="true" />
-            <RadzenAxisTitle Text="Trial RT (ms)" />
-        </RadzenValueAxis>
-    </RadzenChart>
-    </RadzenCard>
-      
-    *@
-
-    
-
-@if (1==2)//createUserDialogOpen)
-{
-<p>
-    <button class="btn @(createUserDialogOpen ?  "btn-primary" : "btn-dark") "
-            @onclick="@MyMethodAsync0">
-        Stop When the Graph is Ready
-    </button>
-    <button class="btn @(createUserDialogOpen ?  "btn-primary" : "btn-dark") "
-            @onclick="@(e => { createUserDialogOpen = false; })">
-        Close Current Window
-    </button>
-</p>
-
-    <p>
-        <button class="btn @(createUserDialogOpen ?  "btn-primary" : "btn-dark") "
-                @onclick="@MyMethodAsync0">
-            Stop When the Graph is Ready
-        </button>
-        <MatButton Raised="true" Icon="close" @onclick="@(e => { createUserDialogOpen = false; })">Close Current Window</MatButton>
-    </p>
-
-    
-
-<div class="mat-layout-grid">
-    <label>Single Trial Chart Visible<RadzenCheckBox @bind-Value="@singleTrialChartPrime" @onclick="asoKeepDataSingleTrial" Name="SingleChart"></RadzenCheckBox></label>
-    <RadzenChart Style="height: 300px;width: 500px" Visible="singleTrialChartPrime">
-        <label>Smooth<RadzenCheckBox @bind-Value="@smoothTrial" Name="smooth"></RadzenCheckBox></label>
-        <label>Speed/Resolution: Min 1 <RadzenSlider @bind-Value="asoSingleTrialSpeed" TValue="int" Min="1" Max="N" Step="10" Change="@((args) => Change(args, "Slider from 1 to 100"))" Style="margin-bottom: 0px;" /> Max @N</label>
-        <RadzenLineSeries Smooth="@smoothTrial" Data="@singleTrialArray" CategoryProperty="singleTrialCycle" Title="L-Prime" LineType="LineType.Solid" ValueProperty="singleTrialOutbLLX">
-            <RadzenMarkers MarkerType="MarkerType.Auto" />
-        </RadzenLineSeries>
-        <RadzenLineSeries Smooth="@smoothTrial" Data="@singleTrialArray" CategoryProperty="singleTrialCycle" Title="R-Prime" LineType="LineType.Solid" ValueProperty="singleTrialOutbLRX">
-            <RadzenMarkers MarkerType="MarkerType.Auto" />
-        </RadzenLineSeries>
-        <RadzenLineSeries Smooth="@smoothTrial" Data="@singleTrialArray" CategoryProperty="singleTrialCycle" Title="L-Mask" LineType="LineType.Solid" ValueProperty="singleTrialOutbLMX">
-            <RadzenMarkers MarkerType="MarkerType.Auto" />
-        </RadzenLineSeries>
-        <RadzenLineSeries Smooth="@smoothTrial" Data="@singleTrialArray" CategoryProperty="singleTrialCycle" Title="L-Target" LineType="LineType.Solid" ValueProperty="singleTrialOutbRLX">
-            <RadzenMarkers MarkerType="MarkerType.Auto" />
-        </RadzenLineSeries>
-        <RadzenLineSeries Smooth="@smoothTrial" Data="@singleTrialArray" CategoryProperty="singleTrialCycle" Title="R-Target" LineType="LineType.Solid" ValueProperty="singleTrialOutbRRX">
-            <RadzenMarkers MarkerType="MarkerType.Auto" />
-        </RadzenLineSeries>
-        <RadzenLineSeries Smooth="@smoothTrial" Data="@singleTrialArray" CategoryProperty="singleTrialCycle" Title="R-Mask" LineType="LineType.Solid" ValueProperty="singleTrialOutbRMX">
-            <RadzenMarkers MarkerType="MarkerType.Auto" />
-        </RadzenLineSeries>
-        <RadzenLineSeries  Smooth="@smoothTrial" Data="@singleTrialArray" CategoryProperty="singleTrialCycle" Title="L-Response" LineType="LineType.Solid" ValueProperty="singleTrialOutaLX">
-            <RadzenMarkers MarkerType="MarkerType.Auto" />
-        </RadzenLineSeries>
-        <RadzenLineSeries Smooth="@smoothTrial" Data="@singleTrialArray" CategoryProperty="singleTrialCycle" Title="R-Response" LineType="LineType.Solid" ValueProperty="singleTrialOutaRX">
-            <RadzenMarkers MarkerType="MarkerType.Auto" />
-        </RadzenLineSeries>
-        <RadzenLineSeries Smooth="@smoothTrial" Data="@singleTrialArray" CategoryProperty="singleTrialCycle" Title="Threshold-R" LineType="LineType.Solid" ValueProperty="singleTrialOutaThresh">
-            <RadzenMarkers MarkerType="MarkerType.Auto" />
-        </RadzenLineSeries>
-        @*
-        <RadzenLineSeries Smooth="@smoothTrial" Data="@singleTrialArray" CategoryProperty="singleTrialCycle" Title="L-Task" LineType="LineType.Solid" ValueProperty="singleTrialTaskLX">
-            <RadzenMarkers MarkerType="MarkerType.Auto" />
-        </RadzenLineSeries>
-        <RadzenLineSeries Smooth="@smoothTrial" Data="@singleTrialArray" CategoryProperty="singleTrialCycle" Title="R-Task" LineType="LineType.Solid" ValueProperty="singleTrialTaskRX">
-            <RadzenMarkers MarkerType="MarkerType.Auto" />
-        </RadzenLineSeries>
-        <RadzenLineSeries Smooth="@smoothTrial" Data="@singleTrialArray" CategoryProperty="singleTrialCycle" Title="Threshold-T" LineType="LineType.Solid" ValueProperty="singleTrialTaskThresh">
-            <RadzenMarkers MarkerType="MarkerType.Auto" />
-        </RadzenLineSeries>
-        <RadzenLineSeries Smooth="@smoothTrial" Data="@singleTrialArray" CategoryProperty="singleTrialCycle" Title="V-Attention" LineType="LineType.Solid" ValueProperty="singleTrialAttV">
-            <RadzenMarkers MarkerType="MarkerType.Auto" />
-        </RadzenLineSeries>
-        <RadzenLineSeries Smooth="@smoothTrial" Data="@singleTrialArray" CategoryProperty="singleTrialCycle" Title="U-Attention" LineType="LineType.Solid" ValueProperty="singleTrialAttU">
-            <RadzenMarkers MarkerType="MarkerType.Auto" />
-        </RadzenLineSeries>
-        <RadzenLineSeries Smooth="@smoothTrial" Data="@singleTrialArray" CategoryProperty="singleTrialCycle" Title="HV-Attention" LineType="LineType.Solid" ValueProperty="singleTrialAttHv">
-            <RadzenMarkers MarkerType="MarkerType.Auto" />
-        </RadzenLineSeries>
-        <RadzenLineSeries Smooth="@smoothTrial" Data="@singleTrialArray" CategoryProperty="singleTrialCycle" Title="Conflict-1" LineType="LineType.Solid" ValueProperty="singleTrialConf">
-            <RadzenMarkers MarkerType="MarkerType.Auto" />
-        </RadzenLineSeries>
-        <RadzenLineSeries Smooth="@smoothTrial" Data="@singleTrialArray" CategoryProperty="singleTrialCycle" Title="Conflict-T" LineType="LineType.Solid" ValueProperty="singleTrialConfThresh">
-            <RadzenMarkers MarkerType="MarkerType.Auto" />
-        </RadzenLineSeries>
-        <RadzenLineSeries Smooth="@smoothTrial" Data="@singleTrialArray" CategoryProperty="singleTrialCycle" Title="Conflict-C" LineType="LineType.Solid" ValueProperty="singleTrialConfTrial">
-            <RadzenMarkers MarkerType="MarkerType.Auto" />
-        </RadzenLineSeries>
-        <RadzenCategoryAxis Step="100" Padding="100" FormatString="{0}" />
-        <RadzenValueAxis Formatter="@FormatAsUSD" Min="0" Max="1">
-            <RadzenGridLines Visible="true" />
-            <RadzenAxisTitle Text="Activation" />
-        </RadzenValueAxis>
-        *@
-    </RadzenChart>
-</div>
-
-}
-
-
-    @if (1==2)//spinning == false)
-{
-    @*
-                <div class="col-xl-6 mb-5">
-                              <RadzenListBox AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" @bind-Value=@value Data=@modelsRTlist TextProperty="modelDataItem.TrialsStr" ValueProperty="modelDataItem.modelRTi"
-                    Change=@(args => OnChange(args, "ListBox with filtering")) Style="height:200px" />
-                </div>
-                *@
-
-      <RadzenDataList WrapItems="true" AllowPaging="true" Data="@modelsRTlist" TItem="modelDataItem">
-        <Template Context="modelDataItem">
-            <RadzenCard Style="width:300px;">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div>Trials:</div>
-                        <div style="margin-top:20px">TrialsStr:</div>
-                        <b>@modelDataItem.TrialsStr</b>
-                        <div style="margin-top:20px">modelCycleX:</div>
-                        <b>@modelDataItem.modelCycleX</b>                  
-                        <br />
-                    </div>
-                    <div class="col-md-6">
-                        <div>RTs:</div>
-                        <div style="margin-top:20px">icong:</div>
-                        <b>@modelDataItem.modelRTi</b>
-                        <div style="margin-top:20px">cong:</div>
-                          <b>@modelDataItem.modelRTc</b>
-                    </div>
-                </div>
-            </RadzenCard>
-        </Template>
-    </RadzenDataList>
-}
-
-@if (1 == 2)
-{
-<div class="row">
-    <div class="col-xl-6">
-        <RadzenAccordion Expand=@(args => Change(args, "Main Parameters", "expanded"))>
-            <Items>
-                <RadzenAccordionItem Text="Main Parameters" Icon="account_balance_wallet">
-<div class="mat-layout-grid">
-        <div class="mat-layout-grid-inner">
-            <div class="mat-layout-grid-cell">
-                <RadzenNumeric Placeholder="ModelNumber" @bind-Value="@ModelNumber" />
-            </div>
-            <div class="mat-layout-grid-cell">
-                <RadzenNumeric Placeholder="TrialNumber" @bind-Value="@TrialNumber" />
-            </div>
-
-            <div class="mat-layout-grid-cell">
-                <RadzenNumeric Placeholder="DurationTrial" @bind-Value="@N" />
-            </div>
-        </div>
-        <div class="mat-layout-grid-inner">
-            <div class="mat-layout-grid-cell">
-                <RadzenNumeric Placeholder="DurationFix" @bind-Value="@durFix" />
-            </div>
-            <div class="mat-layout-grid-cell">
-                <RadzenNumeric Placeholder="DurationPrime" @bind-Value="@durPrime" />
-            </div>
-            <div class="mat-layout-grid-cell">
-                <RadzenNumeric Placeholder="DurationMask" @bind-Value="@durMask" />
-            </div>
-        </div>
-        <div class="mat-layout-grid-inner">
-            <div class="mat-layout-grid-cell">
-                <RadzenNumeric Placeholder="DurationTarget" @bind-Value="@durTarget" />
-            </div>
-            <div class="mat-layout-grid-cell">
-                <RadzenNumeric Placeholder="PrimeMaskISI" @bind-Value="@durPrimeMaskISI" />
-            </div>
-            <div class="mat-layout-grid-cell">
-                <RadzenNumeric Placeholder="M_T_ISI_Coef" @bind-Value="@durM_T_ISIcoef" />
-            </div>
-        </div>
-        <div class="mat-layout-grid-inner">
-            <div class="mat-layout-grid-cell">
-                <RadzenNumeric Placeholder="NoisePTM" @bind-Value="@noisePTR" />
-            </div>
-            <div class="mat-layout-grid-cell">
-                <RadzenNumeric Placeholder="NoiseMasks" @bind-Value="@noiseMasks" />
-            </div>
-            <div class="mat-layout-grid-cell">
-                <RadzenNumeric Placeholder="NoiseTass" @bind-Value="@noiseTask" />
-            </div>
-        </div>
-    </div>
-                </RadzenAccordionItem>
-                <RadzenAccordionItem Text="Employees" Icon="account_box">
-                    Details for Employees
-                </RadzenAccordionItem>
-                <RadzenAccordionItem Text="Customers" Icon="accessibility">
-                    Details for Customers
-                </RadzenAccordionItem>
-            </Items>
-        </RadzenAccordion>
-        <br />
-        <h3>Accordion with multiple expand</h3>
-        <RadzenAccordion Multiple="true" Collapse=@(args => Change(args, "Accordion with multiple expand", "collapsed"))
-                            Expand=@(args => Change(args, "Accordion with multiple expand", "expanded"))>
-            <Items>
-                <RadzenAccordionItem Text="Orders" Icon="account_balance_wallet">
-                    Details for Orders
-                </RadzenAccordionItem>
-                <RadzenAccordionItem Text="Employees" Icon="account_box">
-                    Details for Employees
-                </RadzenAccordionItem>
-                <RadzenAccordionItem Text="Customers" Icon="accessibility">
-                    Details for Customers
-                </RadzenAccordionItem>
-            </Items>
-        </RadzenAccordion>
-        <br />
-    </div>
-    <div class="col-xl-6">
-        <h1>aso y</h1>
-    </div>
-</div>
-}
-
-@if (1==2)//spinning == false)
-{
-    <div class="mat-layout-grid">
-        <div class="mat-layout-grid-inner">
-
-        </div>
-        <div class="mat-layout-grid-inner">
-
-        </div>
-        <div class="mat-layout-grid-inner">
-
-        </div>
-        <div class="mat-layout-grid-inner">
-
-        </div>
-    </div>
-
-
-
-    <div class="mat-layout-grid">
-        <div class="mat-layout-grid-inner">
-            <div class="mat-layout-grid-cell">
-                <RadzenNumeric Placeholder="CrossPri" @bind-Value="@CrossPri" />
-            </div>
-            <div class="mat-layout-grid-cell">
-                <RadzenNumeric Placeholder="SelfPri" @bind-Value="@SelfPri" />
-            </div>
-
-        </div>
-        <div class="mat-layout-grid-inner">
-
-            <div class="mat-layout-grid-cell">
-                <RadzenNumeric Placeholder="InpPrimeMin" @bind-Value="@inpamin" />
-            </div>
-            <div class="mat-layout-grid-cell">
-                <RadzenNumeric Placeholder="InpPrimeMax" @bind-Value="@inpamax" />
-            </div>
-        </div>
-        <div class="mat-layout-grid-inner">
-            <div class="mat-layout-grid-cell">
-                <RadzenNumeric Placeholder="ThreshPri" @bind-Value="@ThreshPri" />
-            </div>
-            <div class="mat-layout-grid-cell">
-                <RadzenNumeric Placeholder="inhPri" @bind-Value="@inhPri" />
-            </div>
-        </div>
-        <div class="mat-layout-grid-inner">
-            <div class="mat-layout-grid-cell">
-                <RadzenNumeric Placeholder="biasPri" @bind-Value="@biasPL" />
-            </div>
-            <div class="mat-layout-grid-cell">
-                <RadzenNumeric Placeholder="conPri" @bind-Value="@conPrime" />
-            </div>
-        </div>
-    </div>
-
-
-
-    <div class="mat-layout-grid">
-        <div class="mat-layout-grid-inner">
-            <div class="mat-layout-grid-cell">
-                <RadzenNumeric Placeholder="CrossTar" @bind-Value="@CrossTar" />
-            </div>
-            <div class="mat-layout-grid-cell">
-                <RadzenNumeric Placeholder="SelfTar" @bind-Value="@SelfTar" />
-            </div>
-
-        </div>
-        <div class="mat-layout-grid-inner">
-
-            <div class="mat-layout-grid-cell">
-                <RadzenNumeric Placeholder="InpTargetMin" @bind-Value="@inpbmin" />
-            </div>
-            <div class="mat-layout-grid-cell">
-                <RadzenNumeric Placeholder="InpTargetMax" @bind-Value="@inpbmax" />
-            </div>
-        </div>
-        <div class="mat-layout-grid-inner">
-            <div class="mat-layout-grid-cell">
-                <RadzenNumeric Placeholder="inhTar" @bind-Value="@inhTar" />
-            </div>
-            <div class="mat-layout-grid-cell">
-                <RadzenNumeric Placeholder="ThreshTar" @bind-Value="@ThreshTar" />
-            </div>
-
-        </div>
-        <div class="mat-layout-grid-inner">
-            <div class="mat-layout-grid-cell">
-                <RadzenNumeric Placeholder="biasTar" @bind-Value="@biasPR" />
-            </div>
-            <div class="mat-layout-grid-cell">
-                <RadzenNumeric Placeholder="conTar" @bind-Value="@conTarget" />
-            </div>
-
-        </div>
-    </div>
-
-    <div class="mat-layout-grid">
-        <div class="mat-layout-grid-inner">
-            <div class="mat-layout-grid-cell">
-                <RadzenNumeric Placeholder="SelfO" @bind-Value="@SelfO" />
-            </div>
-
-            <div class="mat-layout-grid-cell">
-                <RadzenNumeric Placeholder="inhO" @bind-Value="@inhO" />
-            </div>
-        </div>
-        <div class="mat-layout-grid-inner">
-            <div class="mat-layout-grid-cell">
-                <RadzenNumeric Placeholder="ThreshO" @bind-Value="@ThreshO" />
-            </div>
-            <div class="mat-layout-grid-cell">
-                <RadzenNumeric Placeholder="biasOut" @bind-Value="@biasOut" />
-            </div>
-        </div>
-        <div class="mat-layout-grid-inner">
-            <div class="mat-layout-grid-cell">
-                <RadzenNumeric Placeholder="conResponse" @bind-Value="@conResponse" />
-            </div>
-            <div class="mat-layout-grid-cell">
-                <RadzenNumeric Placeholder="conResponse" @bind-Value="@conResponse" />
-            </div>
-        </div>
-
-    </div>
-    <div class="mat-layout-grid">
-        <div class="mat-layout-grid-inner">
-            <div class="mat-layout-grid-cell">
-                <RadzenNumeric Placeholder="SelfT" @bind-Value="@SelfT" />
-            </div>
-
-            <div class="mat-layout-grid-cell">
-                <RadzenNumeric Placeholder="inhT" @bind-Value="@inhT" />
-            </div>
-        </div>
-        <div class="mat-layout-grid-inner">
-
-            <div class="mat-layout-grid-cell">
-                <RadzenNumeric Placeholder="ThreshT" @bind-Value="@ThreshT" />
-            </div>
-            <div class="mat-layout-grid-cell">
-                <RadzenNumeric Placeholder="inhT" @bind-Value="@biasTask" />
-            </div>
-        </div>
-    </div>
-    <div class="mat-layout-grid">
-        <div class="mat-layout-grid-inner">
-            <div class="mat-layout-grid-cell">
-                <RadzenNumeric Placeholder="ThresholdConf" @bind-Value="@ThreshConf" />
-            </div>
-            <div class="mat-layout-grid-cell">
-                <RadzenNumeric Placeholder="CLC" @bind-Value="@CLC" />
-            </div>
-            <div class="mat-layout-grid-cell">
-                <RadzenNumeric Placeholder="CLCthresh" @bind-Value="@CLCthresh" />
-            </div>
-        </div>
-    </div>
-    <div class="mat-layout-grid">
-        <div class="mat-layout-grid-inner">
-            <div class="mat-layout-grid-cell">
-                <RadzenNumeric Placeholder="SelfMasks" @bind-Value="@SelfMasks" />
-            </div>
-            <div class="mat-layout-grid-cell">
-                <RadzenNumeric Placeholder="BiasMasks" @bind-Value="@BiasMasks" />
-            </div>
-            <div class="mat-layout-grid-cell">
-                <RadzenNumeric Placeholder="CrossLMasks" @bind-Value="@CrossLMasks" />
-            </div>
-        </div>
-        <div class="mat-layout-grid-inner">
-            <div class="mat-layout-grid-cell">
-                <RadzenNumeric Placeholder="ConMasks" @bind-Value="@ConMasks" />
-            </div>
-            <div class="mat-layout-grid-cell">
-                <RadzenNumeric Placeholder="InhMasks" @bind-Value="@InhMasks" />
-            </div>
-            <div class="mat-layout-grid-cell">
-                <RadzenNumeric Placeholder="MaskTargetISI" @bind-Value="@durMaskTargetISI" />
-            </div>
-        </div>
-        <div class="mat-layout-grid-inner">
-            <div class="mat-layout-grid-cell">
-                <RadzenNumeric Placeholder="M_T_ISI_Coef" @bind-Value="@durM_T_ISIcoef" />
-            </div>
-            <div class="mat-layout-grid-cell">
-                <RadzenNumeric Placeholder="InpPrimeMask" @bind-Value="@inpamask" />
-            </div>
-            <div class="mat-layout-grid-cell">
-                <RadzenNumeric Placeholder="InpTargetMask" @bind-Value="@inpbmask" />
-            </div>
-        </div>
-    </div>
-}
-
-
-@if (1==2)
-{
-    <div class="col-xl-6">
-        <h3>Fieldset</h3>
-        <RadzenFieldset AllowCollapse="true" Style="width:600px;margin-bottom: 20px; height:500px;"
-                        Expand=@(() => Change("Fieldset expanded")) Collapse=@(() => Change("Fieldset collapsed"))>
-            <HeaderTemplate>
-                <span>
-                    <RadzenIcon Icon="account_box" /><b style="font-size:30px">Model</b>
-                </span>
-            </HeaderTemplate>
-            <ChildContent>
-                <RadzenDataList PageSize="@ModelNumber" WrapItems="true" AllowPaging="true"
-                                Data="@modelsRTlist" TItem="modelDataItem">
-                    <Template Context="order">
-                        <RadzenCard Style="width:300px;height:300px">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div>Trial:</div>
-                                    <b>@order.TrialsStr</b>
-                                    <div style="margin-top:20px">Cycle/RT</div>
-                                    <b>@(order.modelCycleX + " " + order.modelRTc)</b>
-                                    <br />
-                                </div>
-                                <div class="col-md-6">
-                                    <div style="margin-top:20px">Incongruent:</div>
-                                    <b>@(order.modelRTi)</b>
-                                    <div style="margin-top:20px">Congruent:</div>
-                                    <b>@(order.modelRTc)</b>
-                                </div>
-                            </div>
-
-                        </RadzenCard>
-                    </Template>
-                </RadzenDataList>
-            </ChildContent>
-        </RadzenFieldset>
-    </div>
-}
-
-
-@code{
-        IEnumerable<string> multipleValues = new string[] { "ALFKI", "ANATR" };
+    }   IEnumerable<string> multipleValues = new string[] { "ALFKI", "ANATR" };
             string value = "ALFKI";
 
     void OnChange(object value, string name)
@@ -1300,10 +812,7 @@ else
                     StateHasChanged();
 
     }
-    }
 
-
-@code {
 
     void OnChange(int index)
     {
@@ -1311,9 +820,7 @@ else
                    StateHasChanged();
 
     }
-}
 
-@code {
    // EventConsole console;
     void Change(object value, string name, string action)
     {
@@ -1321,18 +828,11 @@ else
                    StateHasChanged();
 
     }
-}
 
-@code
-{
 //fieldset Radzen Datalist     
 public int asoPageSize {get; set;}=5;
 
-}
 
-
-@code
-    {
 
 
     bool createUserDialogOpen = false;
@@ -1355,10 +855,7 @@ public int asoPageSize {get; set;}=5;
         StateHasChanged();
     }
 
-}
 
-@code
-{
     public int asoSingleTrialSpeed = 150;
     //int valueWithStep = 30;
     bool smoothModels = true;
@@ -1721,12 +1218,89 @@ public int asoPageSize {get; set;}=5;
                                              //single trial data?!
     }
 
-}
+    
+    public void MyMethodAsync0()
+    {
+        spinning = false;
+
+        n = TrialNumber;
+
+        m = ModelNumber;
+
+        n = TrialNumber;
+
+        InvokeAsync(StateHasChanged);
+
+        //result = -1;
+
+    }
+
+    int asoCountDown = 0;
+
+    public async Task MyMethodAsync()
+    {
+        //asoCountDown = 1;
+
+        if (spinning == true)
+        {
+            MyMethodAsync0();
+        }
+        else
+        {
+            modelsRTlist.Clear();
+            //result = -1;
+
+            spinning = true;
+            Task longRunningTask = LongRunningOperationAsync(ModelNumber, TrialNumber, N);
+        }
+        // Count = TrialNumber;
+
+        //c = ModelNumber;
+        ////spinning = false;
+
+        // createUserDialogOpen = true;
+        //// await Task.Delay(1);
+        ////await InvokeAsync(StateHasChanged);
+        //// spinning = true;
+
+        //ModelsData.Clear();
+
+        ////modelsRTlist.Clear();
 
 
 
+        // await Task.Run(() => LongRunningOperationAsync());  //<--here!
+        //currentCount++;
 
-@code {
+        //m = ModelNumber;
+        //n = TrialNumber;
+        //c = N;
+        //                await InvokeAsync(StateHasChanged);
+
+        //and now we call await on the task
+        //// Timer timer2 = new Timer(new TimerCallback(_ =>
+        //// {
+        ////  if (asoCountDown <= 0) return;
+        ////  asoCountDown--;
+        //c
+        // Note that the following line is necessary because otherwise
+        // Blazor would not recognize the state change and not refresh the UI
+
+        // Task longRunningTask = LongRunningOperationAsync(ModelNumber, TrialNumber, N);
+
+        ////   InvokeAsync(StateHasChanged);
+        //// }), null, 1000, 1000);
+
+        // independent work which doesn't need the result of LongRunningOperationAsync can be done here
+        // await longRunningTask;
+
+        //Val0 = false;
+        //use the result
+
+        ////spinning = false;
+        //// await Task.CompletedTask;
+    }
+
 ///////    to bring up later
     public async Task LongRunningOperationAsync(int ModelCount, int TrialCount, int CycleCount) // assume we return an int from this long running operation
     {
@@ -3003,149 +2577,6 @@ public int asoPageSize {get; set;}=5;
         return 1d / Math.Sqrt(2 * σ * σ * Math.PI) * Math.Exp(-((xme - μ) * (xme - μ)) / (2 * σ * σ));
     }
 
-    public void MyMethodAsync0()
-    {
-        spinning = false;
 
-        n = TrialNumber;
-
-        m = ModelNumber;
-
-        n = TrialNumber;
-
-        InvokeAsync(StateHasChanged);
-
-        //result = -1;
-
-    }
-
-    int asoCountDown = 0;
-
-    public async Task MyMethodAsync()
-    {
-        //asoCountDown = 1;
-
-        if (spinning == true)
-        {
-            MyMethodAsync0();
-        }
-        else
-        {
-            modelsRTlist.Clear();
-            //result = -1;
-
-            spinning = true;
-            Task longRunningTask = LongRunningOperationAsync(ModelNumber, TrialNumber, N);
-        }
-        // Count = TrialNumber;
-
-        //c = ModelNumber;
-        ////spinning = false;
-
-        // createUserDialogOpen = true;
-        //// await Task.Delay(1);
-        ////await InvokeAsync(StateHasChanged);
-        //// spinning = true;
-
-        //ModelsData.Clear();
-
-        ////modelsRTlist.Clear();
-
-
-
-        // await Task.Run(() => LongRunningOperationAsync());  //<--here!
-        //currentCount++;
-
-        //m = ModelNumber;
-        //n = TrialNumber;
-        //c = N;
-        //                await InvokeAsync(StateHasChanged);
-
-        //and now we call await on the task
-        //// Timer timer2 = new Timer(new TimerCallback(_ =>
-        //// {
-        ////  if (asoCountDown <= 0) return;
-        ////  asoCountDown--;
-        //c
-        // Note that the following line is necessary because otherwise
-        // Blazor would not recognize the state change and not refresh the UI
-
-        // Task longRunningTask = LongRunningOperationAsync(ModelNumber, TrialNumber, N);
-
-        ////   InvokeAsync(StateHasChanged);
-        //// }), null, 1000, 1000);
-
-        // independent work which doesn't need the result of LongRunningOperationAsync can be done here
-        // await longRunningTask;
-
-        //Val0 = false;
-        //use the result
-
-        ////spinning = false;
-        //// await Task.CompletedTask;
-    }
-
-    //////////////////////////////////////////////////
-    //stopwatch.Start();
-    // await chartCycle.React();
-    //await chartCycle1Prime.React();
-    //asoTimeElapsed = stopwatch.ElapsedMilliseconds;
-    //stopwatch.Stop();
 
 }
-
-@*
-
-
-            <RadzenTextBox @bind-Value=@value MaxLength="5" Change=@(args => OnChange(args, "TextBox with 5 maximum characters")) />
-          <div class="row">
-                <div class="col-xl-6">
-                    <h3>Numeric</h3>
-                    <RadzenNumeric TValue="int" Change=@(args => OnChange(args, "Numeric")) />
-                    <h3 style="margin-top: 2rem">Numeric with Min set to 1 and Max set to 10</h3>
-                    <RadzenNumeric TValue="int" Min="1" Max="10" Change=@(args => OnChange(args, "Numeric with Min set to 1 and Max set to 10")) />
-                    <h3 style="margin-top: 2rem">Numeric with placeholder and 0.5 step</h3>
-                    <RadzenNumeric TValue="double" Placeholder="0.0" Step="0.5" Change=@(args => OnChange(args, "Numeric with placeholder and 0.5 step")) />
-                    <h3 style="margin-top: 2rem">Nullable numeric</h3>
-                    <RadzenNumeric TValue="int?" @bind-Value=@value Placeholder="Enter or clear value" Change=@(args => OnChange(args, "Nullable numeric")) />
-                    <h3 style="margin-top: 2rem">Disabled numeric</h3>
-                    <RadzenNumeric Disabled="true" TValue="int?" @bind-Value=@value Placeholder="Enter or clear value" />
-                </div>
-                <div class="col-xl-6">
-                    <EventConsole @ref=@console />
-                </div>
-            </div>
-
-        @code {
-            int? value;
-
-            EventConsole console;
-
-            void OnChange(dynamic value, string name)
-            {
-                console.Log($"{name} value changed to {value}");
-            }
-
-        }
-        <RadzenTextBox @bind-Value=@AsoStr />
-    <RadzenNumeric  @bind-Value=@asoCountDown/>
-    <RadzenNumeric Placeholder="inhO" @bind-Value="@inhO"></RadzenNumeric>
-
-
-
-
-@if (1 == 1)
-{
-
-
-
-
-      <p>
-    <button class="btn @(spinning ?  "btn-primary" : "btn-dark") "
-            @onclick="@MyMethodAsync0">
-        Stop!
-    </button>
-    <MatButton Raised="true" Icon="chart" @onclick="@(e => LongRunningOperationAsync(ModelNumber, TrialNumber, N))">Run Multi Models2</MatButton>
-     </p>           <MatButton Raised="true" Icon="chart" @onclick="@(e => { createUserDialogOpen = true; })">One Trial Graph</MatButton>
-*@
-

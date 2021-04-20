@@ -39,8 +39,4 @@
     <_ContentIncludedByDefault Remove="Components\CogModel.razor" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Include="Pages\CogModel.razor" />
-  </ItemGroup>
-
 </Project>

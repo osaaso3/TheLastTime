@@ -1,7 +1,9 @@
 ﻿
-@if (1==2)
+@if (1==1)
 {
 <div class="top-row navbar navbar-dark bg-primary">
+
+
 
     @if (DataService.Settings.ShowCategoriesInHeader)
     {
@@ -55,7 +57,8 @@
 
         </Pagination>
     }
-    <span class="navbar-text ml-auto header">&#169; 2020</span>
+        <span class="navbar-text" role="button" id="cogmod">&#169; 2020</span>
+
 </div>
 
 }

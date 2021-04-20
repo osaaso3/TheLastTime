@@ -76,7 +76,7 @@ namespace TheLastTime.Shared.Data
 
             if (tokenResult.TryGetToken(out var token))
             {
-                var q = "name = 'ididit' and mimeType = 'application/vnd.google-apps.folder'";
+                var q = "name = 'cogmod' and mimeType = 'application/vnd.google-apps.folder'";
                 var url = "https://www.googleapis.com/drive/v3/files?q=" + Uri.EscapeDataString(q);
 
                 var requestMessage = new HttpRequestMessage()
@@ -103,7 +103,7 @@ namespace TheLastTime.Shared.Data
 
                     var name = file.GetProperty("name").GetString();
 
-                    if (name == "ididit")
+                    if (name == "cogmod")
                     {
                         folderId = file.GetProperty("id").GetString() ?? string.Empty;
                     }
@@ -215,7 +215,7 @@ namespace TheLastTime.Shared.Data
 
                 requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token.Value);
 
-                var metaContent = JsonContent.Create(new { name = "ididit", description = "ididit backup", mimeType = "application/vnd.google-apps.folder" });
+                var metaContent = JsonContent.Create(new { name = "cogmod", description = "cogmod backup", mimeType = "application/vnd.google-apps.folder" });
 
                 var multipart = new MultipartContent { metaContent };
 
@@ -255,9 +255,9 @@ namespace TheLastTime.Shared.Data
                 JsonContent metaContent;
 
                 if (string.IsNullOrEmpty(folderId))
-                    metaContent = JsonContent.Create(new { name = "ididit.json", description = "ididit backup" });
+                    metaContent = JsonContent.Create(new { name = "cogmod.json", description = "cogmod backup" });
                 else
-                    metaContent = JsonContent.Create(new { name = "ididit.json", description = "ididit backup", parents = new[] { folderId } });
+                    metaContent = JsonContent.Create(new { name = "cogmod.json", description = "cogmod backup", parents = new[] { folderId } });
 
                 //var data = new { Title = "Blazor POST Request Example" };
                 //string content = JsonSerializer.Serialize(data);
@@ -301,7 +301,7 @@ namespace TheLastTime.Shared.Data
 
                 requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token.Value);
 
-                JsonContent metaContent = JsonContent.Create(new { name = "ididit.json", description = "ididit backup" });
+                JsonContent metaContent = JsonContent.Create(new { name = "cogmod.json", description = "cogmod backup" });
 
                 //var data = new { Title = "Blazor POST Request Example", DateTime = DateTime.Now };
                 //string content = JsonSerializer.Serialize(data);

@@ -1,14 +1,11 @@
 ﻿
-<div class="top-row navbar navbar-dark bg-primary px-2 px-sm-3 px-md-2">
-    <button id="toggle-nav-menu" class="navbar-toggler" @onclick="ToggleNavMenu">
-        <span class="fa fa-fw fa-bars"></span>
-    </button>
-
-    <span class="navbar-text" role="button" id="ididit" @onclick="ShowHelp">ididit!</span>
+<div class="main d-flex flex-column">
+    <span class="navbar-text" role="button" id="ididit" @onclick="ShowHelp">CogMod!</span>
 
     <button class="navbar-toggler" @onclick="ToggleOptions">
         <span class="fa fa-fw fa-cog"></span>
     </button>
+
    @if (DataService.Settings.ShowHelp)
 {
     <HelpComponent />
@@ -19,10 +16,8 @@ else if (State.ShowOptions)
 }
 else
 {
-    <div class="container-fluid px-1 px-sm-0 py-2 py-sm-3 d-flex flex-grow-1">
-        <div id="overlay-parent" class="row mx-0 flex-grow-1">
+    <div class="main d-flex flex-column">
 
-            <div class="col-lg-12 col-xl-6 px-1 px-sm-3">
 
                 <HabitComponent Pinned="true" />
 
@@ -36,11 +31,9 @@ else
                 <div class="py-5"></div>
 
                 <Button id="add-habit" class="btn btn-lg btn-primary rounded-circle" @onclick="@(() => { State.NewHabit(); })"><span class="fa fa-fw fa-plus"></span></Button>
-            </div>
+      </div>
 
             <SelectedHabitComponent />
-        </div>
-    </div>
 }
 
 </div>

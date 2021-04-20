@@ -1,6 +1,6 @@
 ﻿@inherits LayoutComponentBase
 
-<Microsoft.AspNetCore.Components.Web.Extensions.Head.Title Value="ididit!"></Microsoft.AspNetCore.Components.Web.Extensions.Head.Title>
+<Microsoft.AspNetCore.Components.Web.Extensions.Head.Title Value="cogmod"></Microsoft.AspNetCore.Components.Web.Extensions.Head.Title>
 
 @if (Theme.BootswatchThemeDict.ContainsKey(Theme.BootswatchTheme))
 {
@@ -12,15 +12,20 @@ else
 }
 
 <div class="page">
-
-<Header />
-
+ <NavMenu />
+        
     <div class="main d-flex flex-column">
+        <Header />
+
     <TheLastTime.Shared.Pages.CogMod />    
+   
         <div class="d-flex flex-grow-1">
             @Body
-            @*<TheLastTime.Shared.Pages.Index />*@
+            @*<TheLastTime.Shared.Pages.Index />
+            <Header />
+            *@
         </div>
+    
     </div>
-        <NavMenu />
+        
 </div>
